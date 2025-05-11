@@ -52,42 +52,38 @@ function getSelectedRadio(name) {
     return null;
 }
 
-//тут короче рачет
 function calculatePrice() {
     let price = BASE_PRICE;
-    
-    // образ
+
     const education = getSelectedValue('education');
     if (education !== 'blank') {
         price *= EDUCATION_COEFFICIENTS[education];
     }
-    
-    // ссотояние семьи
+
     const networth = getSelectedValue('networth');
     if (networth !== 'blank') {
         price *= NETWORTH_COEFFICIENTS[networth];
     }
     
-    // каста
+
     const caste = getSelectedValue('caste');
     if (caste !== 'blank') {
         price += CASTE_BONUSES[caste];
     }
     
-    // навыки
+  
     for (let skill in SKILL_BONUSES) {
         if (isChecked(skill)) {
             price += SKILL_BONUSES[skill];
         }
     }
-    
-    // age
+
     const age = getSelectedRadio('age');
     if (age) {
         price *= AGE_COEFFICIENTS[age];
     }
     
-    // реп+
+ 
     for (let rep in REPUTATION_COEFFICIENTS) {
         if (isChecked(rep)) {
             if (rep === 'general_gossip') {
@@ -101,7 +97,6 @@ function calculatePrice() {
     return Math.round(price);
 }
 
-// обрьотчик (проверяет кнопочка нажимал или нет)
 document.getElementById('submit').addEventListener('click', function() {
     const result = calculatePrice();
     const resultDiv = document.getElementById('result');
